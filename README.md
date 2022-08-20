@@ -1,6 +1,8 @@
 # Jetpack-Compose-Firebase
 
-### Built With 🛠
+In this repository we will see the features of firebase & implement with jetpack compose.
+
+## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
   - [Sealed Classes](https://kotlinlang.org/docs/sealed-classes.html) - Sealed classes and interfaces represent restricted class hierarchies that provide more control over inheritance...
   - [Generics](https://kotlinlang.org/docs/generics.html) - Generics means parameterized types. The idea is to allow type (Integer, String, … etc., and user-defined types) to be a parameter to methods, classes, and interfaces...

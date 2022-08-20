@@ -20,6 +20,6 @@ In this repository we will see the features of firebase & implement with jetpack
 ## Firebase Realtime Database 🛠 
 
 <p align="center">
-<img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-20_at_9.52.40_PM_cFHA9IAwN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661014005042"/>
-<img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-20_at_9.53.11_PM_3_qxoy6l7.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661014005051"/>
+<img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-20_at_9.52.40_PM_cFHA9IAwN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661014005042" height = 300px/>
+<img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-20_at_9.53.11_PM_3_qxoy6l7.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661014005051" height = 300px/>
 </p>

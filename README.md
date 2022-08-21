@@ -17,7 +17,7 @@ In this repository we will see the features of firebase & implement with jetpack
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - [Android Firebase](https://firebase.google.com/docs/android/setup) - Firebase is Google’s mobile application development platform that helps you build, improve, and grow your app.
 
-## Firebase Realtime Database 🛠 
+## Firebase Realtime Database (CRUD Operations) 🛠 
 
 <p align="center">
 <img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-20_at_9.52.40_PM_cFHA9IAwN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661014005042" height = 300px/>

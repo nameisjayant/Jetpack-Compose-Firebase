@@ -33,68 +33,61 @@ fun FirestoreScreen(
     viewModel: FirestoreViewModel = hiltViewModel()
 ) {
     var title by remember { mutableStateOf("") }
-    var des by remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
+    var description by remember { mutableStateOf("") }
     val context = LocalContext.current
-    val isDialog = remember { mutableStateOf(false) }
-    val res = viewModel.res.value
+    val scope = rememberCoroutineScope()
+    var isDialog by remember { mutableStateOf(false) }
     val isUpdate = remember { mutableStateOf(false) }
+    val res = viewModel.res.value
+    val isRefresh = remember { mutableStateOf(false) }
 
-    if (isDialog.value)
+    if (isDialog)
         CommonDialog()
 
     if (isInput.value) {
 
         AlertDialog(onDismissRequest = { isInput.value = false },
+            title = { Text(text = "Add your List", modifier = Modifier.padding(vertical = 10.dp)) },
             text = {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(horizontal = 20.dp, vertical = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     TextField(value = title, onValueChange = {
                         title = it
                     },
-                        placeholder = {
-                            Text(text = "Enter title")
-                        }
+                        placeholder = { Text(text = "Enter title") }
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    TextField(value = des, onValueChange = {
-                        des = it
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TextField(value = description, onValueChange = {
+                        description = it
                     },
-                        placeholder = {
-                            Text(text = "Enter description")
-                        }
+                        placeholder = { Text(text = "Enter description") }
                     )
-                }
-            },
-            buttons = {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
+                    Spacer(modifier = Modifier.height(20.dp))
                     Button(onClick = {
                         scope.launch(Dispatchers.Main) {
                             viewModel.insert(
                                 FirestoreModelResponse.FirestoreItem(
                                     title,
-                                    des
+                                    description
                                 )
                             ).collect {
                                 when (it) {
                                     is ResultState.Success -> {
+                                        isDialog = false
                                         isInput.value = false
-                                        isDialog.value = false
+                                        isRefresh.value = true
                                         context.showMsg(it.data)
-                                        viewModel.getItems()
                                     }
                                     is ResultState.Failure -> {
-                                        isDialog.value = false
+                                        isDialog = false
                                         context.showMsg(it.msg.toString())
                                     }
                                     ResultState.Loading -> {
-                                        isDialog.value = true
+                                        isDialog = true
                                     }
                                 }
                             }
@@ -103,55 +96,78 @@ fun FirestoreScreen(
                         Text(text = "Save")
                     }
                 }
+            },
+            buttons = {
+
             }
         )
     }
 
+    if(isRefresh.value) {
+        isRefresh.value = false
+        viewModel.getItems()
+    }
 
     if (isUpdate.value)
-        UpdateData(
-            item = viewModel.updateData.value,
-            viewModel = viewModel,
-            isUpdate = isUpdate,
-            isDialog = isDialog
+        Update(
+            viewModel.updateData.value,
+            isUpdate,
+            viewModel,
+            isRefresh
         )
 
-
-    if (res.data.isNotEmpty())
-        LazyColumn {
-            items(
-                res.data,
-                key = {
-                    it.key!!
-                }
-            ) { items ->
-                EachRow1(itemState = items,
-                    onUpdate = {
-                        isUpdate.value = true
-                        viewModel.setData(items)
-                    }
-                ){
-                    scope.launch(Dispatchers.Main){
-                        viewModel.delete(items.key!!)
-                            .collect {
-                                when (it) {
-                                    is ResultState.Success -> {
-                                        isDialog.value = false
-                                        context.showMsg(it.data)
-                                        viewModel.getItems()
-                                    }
-                                    is ResultState.Failure -> {
-                                        isDialog.value = false
-                                        context.showMsg(it.msg.toString())
-                                    }
-                                    ResultState.Loading -> {
-                                        isDialog.value = true
-                                    }
+    if (res.data.isNotEmpty()) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            items(res.data, key = {
+                it.key!!
+            }) { user ->
+                EachRow1(user = user, onUpdate = {
+                    isUpdate.value = true
+                    viewModel.setData(
+                        FirestoreModelResponse(
+                            key = user.key,
+                            item = FirestoreModelResponse.FirestoreItem(
+                                user.item?.title,
+                                user.item?.description
+                            )
+                        )
+                    )
+                }) {
+                    scope.launch {
+                        viewModel.delete(user.key!!).collect {
+                            when (it) {
+                                is ResultState.Success -> {
+                                    isDialog = false
+                                    isRefresh.value = true
+                                    context.showMsg(it.data)
+                                }
+                                is ResultState.Failure -> {
+                                    isDialog = false
+                                    context.showMsg(it.msg.toString())
+                                }
+                                ResultState.Loading -> {
+                                    isDialog = true
                                 }
                             }
+                        }
                     }
                 }
             }
+
+        }
+    }
+
+
+    if (res.error.isNotEmpty())
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 10.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = res.error)
         }
 
     if (res.isLoading)
@@ -159,139 +175,125 @@ fun FirestoreScreen(
             CircularProgressIndicator()
         }
 
-    if (res.error.isNotEmpty())
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(res.error)
-        }
+
 }
 
-
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EachRow1(
-    itemState: FirestoreModelResponse,
+    user: FirestoreModelResponse,
     onUpdate: () -> Unit = {},
     onDelete: () -> Unit = {}
 ) {
-
     Card(
-        modifier = Modifier.fillMaxWidth(),
         elevation = 1.dp,
-        shape = RoundedCornerShape(8.dp)
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+        onClick = {
+            onUpdate()
+        }
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                onUpdate()
-            }) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = itemState.item?.title!!,
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        ),
-                        modifier = Modifier.align(
-                            Alignment.CenterVertically
-                        )
-                    )
-                    IconButton(
-                        onClick = {
-                            onDelete()
-                        },
-
-                        ) {
-                        Icon(Icons.Default.Delete, contentDescription = "", tint = Color.Red)
-                    }
-                }
                 Text(
-                    text = itemState.item?.description!!,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Gray
-                    )
+                    text = user.item?.title!!, style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    ),
+                    modifier = Modifier.align(Alignment.CenterVertically)
                 )
+                IconButton(onClick = {
+                    onDelete()
+                }) {
+                    Icon(Icons.Default.Delete, contentDescription = "", tint = Color.Red)
+                }
             }
+            Text(
+                text = user.item?.description!!, style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Gray
+                )
+            )
         }
     }
-
 }
 
+
 @Composable
-fun UpdateData(
+fun Update(
     item: FirestoreModelResponse,
+    isDialog: MutableState<Boolean>,
     viewModel: FirestoreViewModel,
-    isUpdate: MutableState<Boolean>,
-    isDialog: MutableState<Boolean>
+    isRefresh:MutableState<Boolean>
 ) {
 
     var title by remember { mutableStateOf(item.item?.title) }
-    var des by remember { mutableStateOf(item.item?.description) }
+    var description by remember { mutableStateOf(item.item?.description) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    var progress by remember { mutableStateOf(false) }
 
-    AlertDialog(onDismissRequest = { isUpdate.value = false },
+    AlertDialog(onDismissRequest = { isDialog.value = false },
+        title = {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Text(text = "Update List", modifier = Modifier.padding(vertical = 10.dp))
+            }
+        },
         text = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
+                    .padding(horizontal = 20.dp, vertical = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 TextField(value = title!!, onValueChange = {
                     title = it
                 },
-                    placeholder = {
-                        Text(text = "Enter title")
-                    }
+                    placeholder = { Text(text = "Enter title") }
                 )
-                Spacer(modifier = Modifier.height(10.dp))
-                TextField(value = des!!, onValueChange = {
-                    des = it
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(value = description!!, onValueChange = {
+                    description = it
                 },
-                    placeholder = {
-                        Text(text = "Enter description")
-                    }
+                    placeholder = { Text(text = "Enter description") }
                 )
             }
         },
         buttons = {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Button(onClick = {
-                    scope.launch(Dispatchers.Main) {
+                    scope.launch {
                         viewModel.update(
                             FirestoreModelResponse(
+                                key = item.key,
                                 item = FirestoreModelResponse.FirestoreItem(
                                     title,
-                                    des
-                                ),
-                                key = item.key
+                                    description,
+                                )
                             )
                         ).collect {
                             when (it) {
                                 is ResultState.Success -> {
-                                    isUpdate.value = false
-                                    isDialog.value = false
                                     context.showMsg(it.data)
-                                    viewModel.getItems()
+                                    isDialog.value = false
+                                    progress = false
+                                    isRefresh.value = true
                                 }
                                 is ResultState.Failure -> {
-                                    isDialog.value = false
                                     context.showMsg(it.msg.toString())
+                                    isDialog.value = false
+                                    progress = false
                                 }
                                 ResultState.Loading -> {
-                                    isDialog.value = true
+                                    progress = true
                                 }
                             }
                         }
@@ -303,5 +305,6 @@ fun UpdateData(
         }
     )
 
-
+    if (progress)
+        CommonDialog()
 }

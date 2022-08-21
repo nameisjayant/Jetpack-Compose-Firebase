@@ -22,6 +22,7 @@ class FirestoreViewModel @Inject constructor(
     val res:State<FirestoreState> = _res
 
     fun insert(item:FirestoreModelResponse.FirestoreItem) = repo.insert(item)
+
     private val _updateData:MutableState<FirestoreModelResponse> = mutableStateOf(
         FirestoreModelResponse(
         item = FirestoreModelResponse.FirestoreItem()

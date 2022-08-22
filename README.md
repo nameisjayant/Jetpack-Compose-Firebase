@@ -29,5 +29,3 @@ In this repository we will see the features of firebase & implement with jetpack
 <p align="center">
 <img src="https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-22_at_7.32.59_PM_tfjR_WbnG.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661177077570" height = 300px/>
 </p>
-
-https://ik.imagekit.io/b1tyxyuh2/Screenshot_2022-08-22_at_7.32.59_PM_tfjR_WbnG.png?ik-sdk-version=javascript-1.4.3&updatedAt=1661177077570

@@ -15,8 +15,9 @@
         android:theme="@style/Theme.FirebaseProject"
         tools:targetApi="31">
         <activity android:name=".RealtimeDatabaseActivity"/>
+        <activity android:name=".firestoredb.FirestoreActivity"/>
         <activity
-            android:name=".firestoredb.FirestoreActivity"
+            android:name=".fiebaseauth.AuthActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FirebaseProject">

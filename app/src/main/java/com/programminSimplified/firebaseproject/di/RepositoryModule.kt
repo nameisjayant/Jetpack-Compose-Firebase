@@ -1,5 +1,7 @@
 package com.programminSimplified.firebaseproject.di
 
+import com.programminSimplified.firebaseproject.fiebaseauth.repository.AuthRepository
+import com.programminSimplified.firebaseproject.fiebaseauth.repository.AuthRepositoryImpl
 import com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository.RealtimeDbRepository
 import com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository.ReatimeRepository
 import com.programminSimplified.firebaseproject.firestoredb.repository.FirestoreDbRepositoryImpl
@@ -22,6 +24,11 @@ abstract class RepositoryModule {
    abstract fun providesFirestoreRepository(
        repo:FirestoreDbRepositoryImpl
    ):FirestoreRepository
+
+   @Binds
+   abstract fun providesFirebaseAuthRepository(
+       repo:AuthRepositoryImpl
+   ):AuthRepository
 
 }
 

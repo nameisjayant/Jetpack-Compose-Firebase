@@ -1,4 +1,4 @@
-package com.programminSimplified.firebaseproject.fiebaseauth
+package com.programminSimplified.firebaseproject.features.fiebaseauth.model
 
 data class AuthUser(
     val email:String? = "",

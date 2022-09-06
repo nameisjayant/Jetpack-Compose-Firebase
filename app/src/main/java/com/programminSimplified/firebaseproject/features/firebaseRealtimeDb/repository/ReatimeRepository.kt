@@ -1,6 +1,6 @@
-package com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository
+package com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.repository
 
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.RealtimeModelResponse
+import com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.RealtimeModelResponse
 import com.programminSimplified.firebaseproject.utils.ResultState
 import kotlinx.coroutines.flow.Flow
 

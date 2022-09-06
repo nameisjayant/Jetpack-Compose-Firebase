@@ -1,16 +1,14 @@
-package com.programminSimplified.firebaseproject.firebaseRealtimeDb.ui
+package com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.ui
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.RealtimeModelResponse
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository.RealtimeDbRepository
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository.ReatimeRepository
+import com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.RealtimeModelResponse
+import com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.repository.ReatimeRepository
 import com.programminSimplified.firebaseproject.utils.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.programminSimplified.firebaseproject.fiebaseauth
+package com.programminSimplified.firebaseproject.features.fiebaseauth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,11 +12,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.programminSimplified.firebaseproject.common.CommonDialog
-import com.programminSimplified.firebaseproject.fiebaseauth.ui.AuthViewModel
+import com.programminSimplified.firebaseproject.features.fiebaseauth.model.AuthUser
+import com.programminSimplified.firebaseproject.features.fiebaseauth.ui.AuthViewModel
 import com.programminSimplified.firebaseproject.utils.ResultState
 import com.programminSimplified.firebaseproject.utils.showMsg
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Composable

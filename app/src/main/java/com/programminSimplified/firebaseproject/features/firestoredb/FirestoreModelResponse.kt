@@ -1,4 +1,4 @@
-package com.programminSimplified.firebaseproject.firestoredb
+package com.programminSimplified.firebaseproject.features.firestoredb
 
 data class FirestoreModelResponse(
     val item:FirestoreItem?,

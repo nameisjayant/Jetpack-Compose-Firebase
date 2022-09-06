@@ -1,10 +1,10 @@
-package com.programminSimplified.firebaseproject.firebaseRealtimeDb.repository
+package com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.repository
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.RealtimeModelResponse
+import com.programminSimplified.firebaseproject.features.firebaseRealtimeDb.RealtimeModelResponse
 import com.programminSimplified.firebaseproject.utils.ResultState
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

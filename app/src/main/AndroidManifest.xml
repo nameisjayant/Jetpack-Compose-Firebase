@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseProject"
         tools:targetApi="31">
-        <activity android:name=".RealtimeDatabaseActivity"/>
-        <activity android:name=".firestoredb.FirestoreActivity"/>
+        <activity android:name=".features.fiebaseauth.activity.RealtimeDatabaseActivity"/>
+        <activity android:name="com.programminSimplified.firebaseproject.features.firestoredb.FirestoreActivity"/>
         <activity
-            android:name=".fiebaseauth.AuthActivity"
+            android:name="com.programminSimplified.firebaseproject.features.fiebaseauth.activity.AuthActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FirebaseProject">

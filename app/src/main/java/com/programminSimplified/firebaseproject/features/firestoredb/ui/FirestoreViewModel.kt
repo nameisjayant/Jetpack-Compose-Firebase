@@ -1,15 +1,14 @@
-package com.programminSimplified.firebaseproject.firestoredb.ui
+package com.programminSimplified.firebaseproject.features.firestoredb.ui
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.programminSimplified.firebaseproject.firestoredb.FirestoreModelResponse
-import com.programminSimplified.firebaseproject.firestoredb.repository.FirestoreRepository
+import com.programminSimplified.firebaseproject.features.firestoredb.FirestoreModelResponse
+import com.programminSimplified.firebaseproject.features.firestoredb.repository.FirestoreRepository
 import com.programminSimplified.firebaseproject.utils.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

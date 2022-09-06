@@ -1,6 +1,6 @@
-package com.programminSimplified.firebaseproject.firestoredb.repository
+package com.programminSimplified.firebaseproject.features.firestoredb.repository
 
-import com.programminSimplified.firebaseproject.firestoredb.FirestoreModelResponse
+import com.programminSimplified.firebaseproject.features.firestoredb.FirestoreModelResponse
 import com.programminSimplified.firebaseproject.utils.ResultState
 import kotlinx.coroutines.flow.Flow
 

@@ -1,12 +1,12 @@
-package com.programminSimplified.firebaseproject.fiebaseauth
+package com.programminSimplified.firebaseproject.features.fiebaseauth.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
+import com.programminSimplified.firebaseproject.features.fiebaseauth.AuthScreen
+import com.programminSimplified.firebaseproject.features.fiebaseauth.screens.PhoneAuthScreen
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class AuthActivity : ComponentActivity() {
@@ -16,7 +16,8 @@ class AuthActivity : ComponentActivity() {
         setContent {
             androidx.compose.material.Surface() {
                 Scaffold {
-                    AuthScreen()
+                //    AuthScreen()
+                    PhoneAuthScreen(activity = this)
                 }
             }
         }

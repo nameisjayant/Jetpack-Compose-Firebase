@@ -1,10 +1,8 @@
-package com.programminSimplified.firebaseproject.firestoredb
+package com.programminSimplified.firebaseproject.features.firestoredb
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -19,12 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.programminSimplified.firebaseproject.common.CommonDialog
-import com.programminSimplified.firebaseproject.firebaseRealtimeDb.RealtimeModelResponse
-import com.programminSimplified.firebaseproject.firestoredb.ui.FirestoreViewModel
+import com.programminSimplified.firebaseproject.features.firestoredb.ui.FirestoreViewModel
 import com.programminSimplified.firebaseproject.utils.ResultState
 import com.programminSimplified.firebaseproject.utils.showMsg
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Composable

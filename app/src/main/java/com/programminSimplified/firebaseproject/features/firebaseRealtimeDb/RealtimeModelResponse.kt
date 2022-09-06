@@ -1,4 +1,4 @@
-package com.programminSimplified.firebaseproject.firebaseRealtimeDb
+package com.programminSimplified.firebaseproject.features.firebaseRealtimeDb
 
 data class RealtimeModelResponse(
     val item:RealtimeItems?,
